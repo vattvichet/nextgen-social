@@ -1,10 +1,10 @@
 # NextGen
 
-A small social feed app — posts with photos, likes, comments, saved posts, and member profiles.
+A small social feed app that posts with photos, likes, comments, saved posts, and member profiles.
 
 ## Stack
 
-- **Backend**: Laravel 10 (PHP), JWT auth, MySQL, S3-compatible object storage
+- **Backend**: Laravel, JWT auth, MySQL, S3-compatible object storage
 - **Frontend**: React + Vite, Tailwind CSS
 - **Infra**: Docker (PHP-FPM + nginx + Caddy), docker-compose
 
@@ -34,4 +34,4 @@ Configuration is read from a `.env` file at the project root (see `docker-compos
 ---
 
 Powered by **DAUN PENH CLOUD**
-Prepared by Vichet, Bun Heng, Kongmeng
+Prepared by Vatt Vichet, LENG Bunheng, HAY Kongmeng
