@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+:root {
+  --orange: #f45b15;
+  --orange-light: #ff7440;
+  --orange-dark: #e95313;
+  --peach: #fff0e5;
+  --cream: #fff7f0;
+
+  --text-primary: #222222;
+  --text-secondary: #77736f;
+  --text-tertiary: #a29b96;
+
+  --border: #f1f1f1;
+  --white: #ffffff;
+  --navy: #26263b;
+
+  --container: 1000px;
+  --transition: 0.22s ease;
+}
+
+@theme {
+  /* Brand accent scale, driven by the tokens above. Every bg-brand-*,
+   * text-brand-*, border-brand-*, focus:ring-brand-* class across the app
+   * already exists - this is the only file that needs to change to
+   * recolor buttons, links, and focus states everywhere. */
+  --color-brand-50: var(--cream);
+  --color-brand-100: var(--peach);
+  --color-brand-200: #ffddc7;
+  --color-brand-300: #ffb98f;
+  --color-brand-400: var(--orange-light);
+  --color-brand-500: #fa6829;
+  --color-brand-600: var(--orange);
+  --color-brand-700: var(--orange-dark);
+  --color-brand-800: #c2440f;
+  --color-brand-900: #96350c;
+
+  /* Also exposed as their own utilities (bg-peach, text-navy, etc.) for
+   * places that want the raw token rather than a scale step. */
+  --color-peach: var(--peach);
+  --color-cream: var(--cream);
+  --color-navy: var(--navy);
+}
+
+body {
+  @apply bg-slate-50 text-slate-900 antialiased;
+}

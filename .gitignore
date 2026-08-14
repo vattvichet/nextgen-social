@@ -1,0 +1,74 @@
+# --- Environment files (all levels) ---
+.env
+.env.*
+!.env.example
+backend/.env
+backend/.env.backup
+backend/.env.production
+
+# --- Backend (Laravel) ---
+backend/vendor/
+backend/node_modules/
+backend/.phpunit.cache/
+backend/.phpunit.result.cache
+backend/public/build/
+backend/public/hot
+backend/public/storage
+backend/storage/*.key
+backend/storage/app/*
+!backend/storage/app/.gitignore
+!backend/storage/app/public
+backend/storage/app/public/*
+!backend/storage/app/public/.gitignore
+backend/storage/framework/cache/*
+!backend/storage/framework/cache/.gitignore
+backend/storage/framework/sessions/*
+!backend/storage/framework/sessions/.gitignore
+backend/storage/framework/testing/*
+!backend/storage/framework/testing/.gitignore
+backend/storage/framework/views/*
+!backend/storage/framework/views/.gitignore
+backend/storage/logs/*
+!backend/storage/logs/.gitignore
+backend/bootstrap/cache/*
+!backend/bootstrap/cache/.gitignore
+backend/Homestead.json
+backend/Homestead.yaml
+backend/auth.json
+
+# --- Frontend (Vite/React) ---
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/*.local
+
+# --- Docker build context leftovers (shouldn't be committed anywhere) ---
+**/*.dockerignore.bak
+
+# --- Logs (any folder) ---
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# --- Editor / IDE (any folder) ---
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.fleet/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# --- OS files (any folder) ---
+.DS_Store
+Thumbs.db
+
+# --- Claude Code (any folder) ---
+.claude/
+CLAUDE.md
+CLAUDE.local.md

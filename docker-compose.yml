@@ -1,0 +1,44 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    expose:
+      - "9000"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: /api
+        VITE_APP_NAME: ${VITE_APP_NAME}
+    # expose:
+    #   - "80"
+    ports:
+      - "2003:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+#   caddy:
+#     image: caddy:2-alpine
+#     env_file:
+#       - .env
+#     ports:
+#       - "80:80"
+#       - "443:443"
+#     volumes:
+#       - ./Caddyfile:/etc/caddy/Caddyfile
+#       - caddy_data:/data
+#       - caddy_config:/config
+#     depends_on:
+#       - frontend
+#     restart: unless-stopped
+
+# volumes:
+#   caddy_data:
+#   caddy_config:
