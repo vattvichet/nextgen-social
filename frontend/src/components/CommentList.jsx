@@ -38,7 +38,13 @@ export default function CommentList({ comments, onDelete, postAuthorId }) {
                 </button>
               )}
             </div>
-            <p className="text-sm text-slate-700">{comment.body}</p>
+{/* INTENTIONALLY VULNERABLE — for the security demo. Real apps should
+    sanitize (e.g. DOMPurify) or avoid dangerouslySetInnerHTML entirely
+    for user-generated content. */}
+<p
+  className="text-sm text-slate-700"
+  dangerouslySetInnerHTML={{ __html: comment.body }}
+/>
             <p className="mt-0.5 text-xs text-slate-400">{formatRelativeTime(comment.created_at)}</p>
           </div>
         </li>
