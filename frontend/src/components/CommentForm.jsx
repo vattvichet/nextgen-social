@@ -35,7 +35,7 @@ export default function CommentForm({ postId, onCommentAdded }) {
             type="text"
             value={body}
             onChange={(e) => setBody(e.target.value)}
-            placeholder="Write a comment…"
+            placeholder="Write a comment, also there's a new feature u can comment image link using html tags!"
             maxLength={2000}
             className="flex-1 rounded-full border border-slate-300 px-4 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
           />

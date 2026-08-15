@@ -8,6 +8,8 @@ services:
     expose:
       - "9000"
     restart: unless-stopped
+    cpus: "0.5"
+    mem_limit: 256m
 
   frontend:
     build:

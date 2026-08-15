@@ -33,6 +33,7 @@ RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framewor
     && chmod -R 775 storage bootstrap/cache
 
 COPY docker/opcache.ini /usr/local/etc/php/conf.d/zz-opcache.ini
+COPY docker/www.conf /usr/local/etc/php-fpm.d/www.conf
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
