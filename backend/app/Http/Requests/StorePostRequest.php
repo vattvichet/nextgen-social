@@ -19,4 +19,14 @@ class StorePostRequest extends FormRequest
             'images.*' => ['image', 'max:5120'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'images.max' => 'You can upload up to 5 photos per post.',
+            'images.*.image' => 'Each file must be a photo.',
+            'images.*.max' => 'Each photo must be 5MB or smaller.',
+            'images.*.uploaded' => 'Each photo must be 5MB or smaller.',
+        ];
+    }
 }
