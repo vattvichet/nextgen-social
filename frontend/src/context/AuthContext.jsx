@@ -47,6 +47,20 @@ export function AuthProvider({ children }) {
 
   async function login(payload) {
     const res = await client.post('/login', payload)
+    if (res.data.status === '2fa_required') {
+      return { twoFactorRequired: true, pendingToken: res.data.pending_token }
+    }
+    persistSession(res.data)
+    return { twoFactorRequired: false }
+  }
+
+  async function verifyLoginOtp(pendingToken, otp_code) {
+    const res = await client.post('/login/verify-otp', { pending_token: pendingToken, otp_code })
+    persistSession(res.data)
+  }
+
+  async function verifyLoginRecovery(pendingToken, recovery_code) {
+    const res = await client.post('/login/verify-recovery', { pending_token: pendingToken, recovery_code })
     persistSession(res.data)
   }
 
@@ -68,7 +82,9 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, token, loading, register, login, logout, updateUser }}>
+    <AuthContext.Provider
+      value={{ user, token, loading, register, login, verifyLoginOtp, verifyLoginRecovery, logout, updateUser }}
+    >
       {children}
     </AuthContext.Provider>
   )

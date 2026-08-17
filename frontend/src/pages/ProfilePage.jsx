@@ -7,6 +7,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import Avatar from '../components/Avatar'
 import PostCard from '../components/PostCard'
+import TwoFactorSettings from '../components/TwoFactorSettings'
 import { ArrowLeftIcon, ImageIcon, InboxIcon } from '../components/icons'
 
 const SKELETON_HEIGHTS = [220, 300, 170, 260]
@@ -284,7 +285,9 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        <div className="mx-auto mt-10 max-w-2xl">
+        <div className="mx-auto mt-10 max-w-2xl space-y-6">
+          <TwoFactorSettings />
+
           <div className="rounded-2xl border border-slate-200/70 bg-white p-6 shadow-sm">
             <button
               onClick={logout}

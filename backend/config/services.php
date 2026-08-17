@@ -31,4 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'dp_totp' => [
+        'base_url' => env('DP_TOTP_BASE_URL', 'https://otp.dpdatacenter.com'),
+        'api_key' => env('DP_TOTP_API_KEY'),
+    ],
+
 ];

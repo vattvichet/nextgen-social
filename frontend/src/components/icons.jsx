@@ -1,3 +1,15 @@
+export function ShieldIcon({ filled, ...props }) {
+  return (
+    <svg viewBox="0 0 24 24" fill={filled ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth={1.8} {...props}>
+      <path
+        d="M12 3.5 5 6v5.5c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6l-7-2.5Z"
+        strokeLinejoin="round"
+      />
+      {!filled && <path d="M9 12l2 2 4-4.5" strokeLinecap="round" strokeLinejoin="round" />}
+    </svg>
+  )
+}
+
 export function MenuIcon(props) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} {...props}>

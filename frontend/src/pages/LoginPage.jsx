@@ -4,19 +4,29 @@ import { useAuth } from '../context/AuthContext'
 import AuthLayout from '../components/AuthLayout'
 
 export default function LoginPage() {
-  const { login } = useAuth()
+  const { login, verifyLoginOtp, verifyLoginRecovery } = useAuth()
   const navigate = useNavigate()
   const [form, setForm] = useState({ login: '', password: '' })
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
+
+  const [step, setStep] = useState('password')
+  const [pendingToken, setPendingToken] = useState(null)
+  const [useRecoveryCode, setUseRecoveryCode] = useState(false)
+  const [code, setCode] = useState('')
 
   async function handleSubmit(e) {
     e.preventDefault()
     setErrors({})
     setSubmitting(true)
     try {
-      await login(form)
-      navigate('/')
+      const result = await login(form)
+      if (result.twoFactorRequired) {
+        setPendingToken(result.pendingToken)
+        setStep('otp')
+      } else {
+        navigate('/')
+      }
     } catch (err) {
       if (err.response?.status === 401) {
         setErrors({ general: 'Incorrect email/username or password.' })
@@ -28,6 +38,86 @@ export default function LoginPage() {
     } finally {
       setSubmitting(false)
     }
+  }
+
+  async function handleOtpSubmit(e) {
+    e.preventDefault()
+    setErrors({})
+    setSubmitting(true)
+    try {
+      if (useRecoveryCode) {
+        await verifyLoginRecovery(pendingToken, code)
+      } else {
+        await verifyLoginOtp(pendingToken, code)
+      }
+      navigate('/')
+    } catch (err) {
+      if (err.response?.status === 422) {
+        setErrors({ general: err.response.data?.message || 'That code is incorrect or expired.' })
+      } else if (err.response?.status === 401) {
+        setErrors({ general: 'Your session has expired. Please log in again.' })
+        setStep('password')
+        setPendingToken(null)
+      } else {
+        setErrors({ general: 'Something went wrong. Please try again.' })
+      }
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  if (step === 'otp') {
+    return (
+      <AuthLayout
+        title="Verify It's You"
+        subtitle={
+          useRecoveryCode
+            ? 'Enter one of your recovery codes.'
+            : 'Enter the 6-digit code from your authenticator app.'
+        }
+      >
+        <form onSubmit={handleOtpSubmit} className="space-y-4">
+          {errors.general && (
+            <div className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{errors.general}</div>
+          )}
+
+          <div>
+            <label className="mb-1 block text-sm font-medium text-slate-700">
+              {useRecoveryCode ? 'Recovery code' : 'Authentication code'}
+            </label>
+            <input
+              type="text"
+              required
+              autoFocus
+              placeholder={useRecoveryCode ? 'ABCD-EFGH-IJKL-MNOP' : '123456'}
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={submitting}
+            className="w-full rounded-lg bg-brand-600 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {submitting ? 'Verifying…' : 'Verify'}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setUseRecoveryCode((v) => !v)
+              setCode('')
+              setErrors({})
+            }}
+            className="w-full text-center text-sm text-slate-500 hover:text-brand-600"
+          >
+            {useRecoveryCode ? 'Use an authenticator code instead' : "Can't access your authenticator app?"}
+          </button>
+        </form>
+      </AuthLayout>
+    )
   }
 
   return (
