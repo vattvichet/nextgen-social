@@ -31,6 +31,10 @@ docker compose exec backend php artisan migrate --force
 
 Configuration is read from a `.env` (format env.example) file at the project root (see `docker-compose.yml` for the full list of variables the `backend` service expects).
 
+
+Please use your own APP_KEY inside .env as base64 value and make sure you never push it to public.
+
+
 ---
 
 Powered by **DAUN PENH CLOUD**
