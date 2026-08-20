@@ -29,7 +29,7 @@ docker compose up -d --build
 docker compose exec backend php artisan migrate --force
 ```
 
-Configuration is read from a `.env` file at the project root (see `docker-compose.yml` for the full list of variables the `backend` service expects).
+Configuration is read from a `.env` (format env.example) file at the project root (see `docker-compose.yml` for the full list of variables the `backend` service expects).
 
 ---
 
